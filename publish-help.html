@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Publishing help · Kalolsavam Live</title>
+<link rel="stylesheet" href="style.css">
+<style>
+ article{max-width:760px;margin:0 auto;padding:16px}
+ h2{margin:28px 0 6px}
+ ol,ul{padding-left:1.3em}li{margin:6px 0}
+ code,pre{background:color-mix(in srgb,var(--leaf2) 12%,transparent);border-radius:6px;font-family:ui-monospace,Menlo,monospace;font-size:.88em}
+ code{padding:1px 6px}pre{padding:10px 12px;overflow:auto}
+ .opt{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 16px;margin:12px 0}
+ .opt summary{cursor:pointer;font-weight:700;padding:10px 0}
+ .tip{border-left:4px solid var(--turmeric);padding:4px 12px;margin:12px 0;background:color-mix(in srgb,var(--turmeric) 12%,transparent);border-radius:0 8px 8px 0}
+ a{color:var(--leaf2)}@media(prefers-color-scheme:dark){a{color:var(--turmeric)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><h1>Publishing help</h1><p>Put Kalolsavam Live online in about 10 minutes, free of cost</p></div></header>
+<article>
+<p><a href="index.html">← Back to the live board</a></p>
+
+<h2>Before you publish</h2>
+<ol>
+  <li>Keep all files in one folder: <code>index.html</code>, <code>app.js</code>, <code>style.css</code>, <code>config.js</code>, <code>admin.html</code>, <code>publish-help.html</code>. No build step is needed.</li>
+  <li><b>Create your admin account.</b> In Supabase: <i>Authentication → Users → Add user</i>. Then in the <i>SQL editor</i> run:
+<pre>insert into public.admin_users (user_id)
+select id from auth.users where email = 'YOUR_EMAIL';</pre></li>
+  <li><b>Turn off public sign-ups</b> (recommended): <i>Authentication → Sign In / Providers → disable "Allow new users to sign up"</i>. Admins are added by you only.</li>
+  <li>Test locally: open a terminal in the folder, run <code>npx serve .</code>, and open the address it shows.</li>
+</ol>
+<div class="tip">Opening <code>index.html</code> by double-click can fail in some browsers. Use <code>npx serve .</code> or one of the hosts below.</div>
+
+<h2>Pick a host (all free)</h2>
+
+<details class="opt" open><summary>Easiest: Netlify Drop (no account setup, drag and drop)</summary>
+<ol>
+  <li>Go to <a href="https://app.netlify.com/drop" target="_blank" rel="noopener">app.netlify.com/drop</a> and sign in.</li>
+  <li>Drag your whole folder onto the page.</li>
+  <li>You get a link like <code>https://random-name.netlify.app</code>. Rename it in <i>Site configuration → Change site name</i>, for example <code>kalolsavam-school.netlify.app</code>.</li>
+  <li>To update later, drag the folder onto <i>Deploys</i> again.</li>
+</ol></details>
+
+<details class="opt"><summary>Cloudflare Pages</summary>
+<ol>
+  <li>Open <a href="https://dash.cloudflare.com" target="_blank" rel="noopener">dash.cloudflare.com</a> → <i>Workers &amp; Pages → Create → Pages → Upload assets</i>.</li>
+  <li>Name the project, upload the folder, and click <i>Deploy</i>.</li>
+  <li>Your site opens at <code>https://project-name.pages.dev</code>.</li>
+</ol></details>
+
+<details class="opt"><summary>GitHub Pages</summary>
+<ol>
+  <li>Create a new public repository on GitHub and upload all the files (<i>Add file → Upload files</i>).</li>
+  <li>Open <i>Settings → Pages</i>, choose <i>Deploy from a branch</i>, select <code>main</code> and <code>/ (root)</code>, then <i>Save</i>.</li>
+  <li>After a minute, your site is at <code>https://USERNAME.github.io/REPO/</code>.</li>
+</ol></details>
+
+<details class="opt"><summary>Vercel</summary>
+<ol>
+  <li>Sign in at <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>, choose <i>Add New → Project</i> and import your GitHub repository.</li>
+  <li>Framework preset: <i>Other</i>. Leave the build command empty and click <i>Deploy</i>.</li>
+</ol></details>
+
+<h2>After it is live</h2>
+<ul>
+  <li>Open your site. The badge at the top right should say <b>Live</b>. If it says <b>Offline</b>, check your internet and that <code>config.js</code> is uploaded.</li>
+  <li>Open the same site on your phone, then on the admin laptop. Sign in with <b>Admin</b> in the footer (or add <code>#admin</code> to the address). Press <b>Start</b> on a program and watch the phone update without refreshing.</li>
+  <li>Press <b>Results</b> on a program, enter winners, and publish. Everyone sees the result and a small celebration.</li>
+  <li>Rename Venue 1–4 under <b>Manage → Venues</b>.</li>
+  <li>Print a QR code of your site link (any free QR generator) and put it on the notice board.</li>
+</ul>
+
+<h2>Optional: custom domain</h2>
+<p>Every host above has a <i>Domains</i> or <i>Custom domain</i> setting. Add your domain, then create the DNS record the host shows. HTTPS is automatic.</p>
+
+<h2>Troubleshooting</h2>
+<ul>
+  <li><b>Blank board / "Could not load data":</b> <code>config.js</code> is missing or the Supabase project is paused. Check the project is active in Supabase.</li>
+  <li><b>Sign-in says "Invalid login credentials":</b> the user does not exist or the password is wrong. Reset it in <i>Authentication → Users</i>.</li>
+  <li><b>Signed in but no admin buttons:</b> the account is not in <code>admin_users</code>. The page shows your user id; run the SQL above.</li>
+  <li><b>Changes save but others do not see them live:</b> check <i>Database → Replication</i> that the Kalolsavam tables are in <code>supabase_realtime</code> (already set up by the migration).</li>
+  <li><b>Old version still showing:</b> hard-refresh (Ctrl+Shift+R, or clear the site's cache on mobile).</li>
+</ul>
+
+<h2>Safe to share</h2>
+<p><code>config.js</code> contains only the public key. It is meant to be seen by everyone. Never put a <code>service_role</code> key in these files.</p>
+</article>
+</body>
+</html>

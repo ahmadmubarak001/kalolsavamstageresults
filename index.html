@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>കലോത്സവം ലൈവ് · Kalolsavam Live</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="top"><div class="in">
+  <span class="conn" id="conn"><i></i><span>Connecting…</span></span>
+  <h1>കലോത്സവം ലൈവ്</h1>
+  <p>Kalolsavam Live: programs, venues, participants and results, updated as they happen</p>
+</div></header>
+<div class="adminbar" id="adminbar" hidden></div>
+<div class="ticker" id="ticker" hidden><span></span></div>
+<main>
+  <div id="nowlive"></div>
+  <div class="bar" aria-hidden="true"><div id="prog" style="width:0"></div></div>
+  <p class="stats" id="stats"></p>
+  <div class="tools" id="tools">
+    <input id="q" type="search" placeholder="Search program or participant · പേര് തിരയുക" aria-label="Search">
+    <button class="tab" data-v="venues" aria-pressed="true">By venue</button>
+    <button class="tab" data-v="results" aria-pressed="false">Results</button>
+    <button class="tab" data-v="people" aria-pressed="false">Participants</button>
+    <button class="tab" data-v="manage" aria-pressed="false" id="manageTab" hidden>Manage</button>
+  </div>
+  <div id="view"></div>
+</main>
+<footer><span>Kalolsavam Live</span><a href="publish-help.html">Publishing help</a><a href="#admin" id="adminLink">Admin</a></footer>
+<dialog id="dlg"></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
